@@ -1,0 +1,194 @@
+{% load static %}
+
+<html lang="ar">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!--Start عنوان title -->
+    {% if title %}  
+    <title>مدونة | {{title}}</title>
+    {% else %}
+    <title>مدونة</title>
+    {% endif %}
+    <!--End عنوان title -->
+    <link rel="stylesheet" href="{% static 'app_blog/css/main.css' %}" />
+    {% comment %} <link rel="stylesheet" href="static/app_blog/css/main.css"/> {% endcomment %}
+    <link
+      rel="stylesheet"
+      href="{% static 'app_blog/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="shortcut icon "
+      href="{% static 'app_blog/image/favicon.ico' %}"
+    />
+    <link rel="stylesheet" href=" {% static 'app_blog/css/main.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <!--Start Navbar-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img
+            src="{% static 'app_blog/image/mim-logo.png' %}"
+            alt="شعار المدونة"
+            width="30"
+          />
+          مدونة</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}"
+                >الرئيسية<span class="sr-only">(current)</span></a
+              >
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                دوراتي
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">دورة بايثون </a>
+                <a class="dropdown-item" href="#">دورة جانقو </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"> دورة نظام ادارة التعلم</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">من نحن</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">تسجيل الدخول </a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">تسجيل </a></li>
+          </ul>
+        </div>
+      </nav>
+      <!--End Navbar-->
+    </header>
+
+    <section>
+      <div class="container">
+        <div class="row mt-4">
+          <div class="col-md-8">
+              {% block content %}
+              
+              {% endblock content %}
+          </div>
+          <div class="col-md-4">
+            <div class="card mb-3">
+              <h3 class="text-center bg-secondary text-light p-2">
+                آخر التدوينات
+              </h3>
+              {% include 'app_blog/latest_posts.html' %}
+            </div>
+
+            <div class="card mb-3">
+              <h3 class="text-center bg-secondary text-light p-2">
+                آخر التعليقات
+              </h3>
+              {% include 'app_blog/latest_comments.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-secondary">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md">
+            <div class="card-group mt-3">
+              <div class="card m-3">
+                <h3 class="card-title text-center border-bottom p-2 m-3">
+                  من نحن
+                </h3>
+
+                <div class="card-body">
+                  <div class="text-center">
+                    <img
+                      src="{% static 'app_blog/image/mim-logo.png ' %}"
+                      alt="شعار المدونة"
+                      width="100px"
+                    />
+                  </div>
+                  Shope - Free Flutter eCommerce Template Twitter URL Open
+                  Source Love. The “Shope” e-Commerce UI Kit has the goal to
+                  help you to save time with the frontend Shope - Free Flutter
+                  eCommerce Template Twitter URL Open Source Love. The “Shope”
+                  e-Commerce UI Kit has the goal to help you to save time with
+                  the frontend
+                </div>
+              </div>
+
+              <div class="card m-3">
+                <h3 class="card-title text-center border-bottom p-2 m-3">
+                  مواقع هامة
+                </h3>
+
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#">الموقع الاول </a></li>
+                    <li><a href="#">الموقع الثاني </a></li>
+                    <li><a href="#">الموقع الثالث </a></li>
+                    <li><a href="#">الموقع الرابع </a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card m-3">
+                <h3 class="card-title text-center border-bottom p-2 m-3">
+                  وسائل التواصل الاجتماعي
+                </h3>
+
+                <h4 class="card-body text-center">
+                  <a href="#" class="text-secondary"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="text-secondary"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="text-secondary"><i class="fab fa-telegram"></i></a>
+                  <a href="#" class="text-secondary"><i class="fab fa-youtube"></i></a>
+                </h4>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-md text-center">
+            <small class="text-light">&copy; جميع الحقوق محفوظة</small>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="{% static 'app_blog/js/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'app_blog/js/popper.min.js' %}"></script>
+    <script src="{% static 'app_blog/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'app_blog/js/fontawesome-all.min.js' %}"></script>
+  </body>
+</html>

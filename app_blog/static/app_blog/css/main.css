@@ -11,58 +11,56 @@ body {
 body {
   font-family: "Tajawal", sans-serif;
 }
-
-/*
-
-
- */
-/* 
 .dropdown-menu .dropdown-item {
   text-align: right;
 }
-
 .bg-secondary {
   background-color: #666 !important;
 }
 
 .bg-light {
-  background-color: #eee !important;
-} */
+  background-color: #ccc !important;
+}
+
+/* Start Post content */
+.post {
+  border: 1px solid #ccc;
+}
+
+/* End Post content */
+
 
 /* Start Sidebar */
-/* .latest-post,
-.latest-comment {
+.latest-post, .latest-comment{
   padding: 0 15px;
+  
 }
-.latest-post .latest-post-item,
-.latest-comment .latest-comment-item {
+.latest-post .latest-post-item, .latest-comment .latest-comment-item{
   padding: 6px;
 }
 
-.latest-post li:first-child,
-.latest-comment li:first-child {
+.latest-post li:first-child, .latest-comment li:first-child{
   border-top: 0;
 }
 
-.latest-post li:last-child,
-.latest-comment li:last-child {
+.latest-post li:last-child, .latest-comment li:last-child{
   border-bottom: 0;
   padding-bottom: 0;
-} */
+}
 
 /* End Sidebar */
 
 /* Start Comment */
-/* .comment {
+ .comment {
   background-color: #f8f8f8;
   border: 1px dashed #ccc;
-} */
+} 
 /* End Comment */
-/* 
+
 .btn-editing {
   float: left;
 }
 
 .back-btn {
   float: left;
-} */
+}
