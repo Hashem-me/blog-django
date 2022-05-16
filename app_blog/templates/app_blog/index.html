@@ -1,9 +1,18 @@
-{% extends 'app_blog/base.html' %} {% block content %} {% for post in posts %}
+{% extends 'app_blog/base.html' %}
+{% block content %} 
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}">
+  {{message}}
+</div>
+{% endfor %}
+{% endif %}
+{% for post in posts %}
 <div class="border p-3 mb-4">
   <img
     class="img-fluid rounded-circle border m-2"
     width="70px"
-    src="static/app_blog/image/user-profile-min.png"
+    src="static/app_blog/image/default.jpg"
     alt="صورة الناشر"
   />
   <span class="text-secondary">نشر في {{post.post_date|date:'d-m-Y'}}</span>
