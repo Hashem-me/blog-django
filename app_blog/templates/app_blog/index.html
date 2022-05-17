@@ -11,8 +11,9 @@
 <div class="border p-3 mb-4">
   <img
     class="img-fluid rounded-circle border m-2"
+    style="width: 120px; height: 120px"
     width="70px"
-    src="static/app_blog/image/default.jpg"
+    src="{{post.author.profile.image.url}}"
     alt="صورة الناشر"
   />
   <span class="text-secondary">نشر في {{post.post_date|date:'d-m-Y'}}</span>
@@ -21,4 +22,6 @@
   </h3>
   <p>{{post.content}}</p>
 </div>
-{% endfor %} {% endblock content %}
+{% endfor %} 
+{% include 'app_blog/pagination.html' with page=posts%}
+{% endblock content %}

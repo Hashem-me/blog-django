@@ -2,9 +2,13 @@ from django import forms
 from django.shortcuts import redirect, render
 
 from app_blog.models import Post
-from .forms import LoginForm, UserCreationForm
+from .forms import LoginForm, UserCreationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+
 # Create your views here.
 
 
@@ -12,13 +16,15 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
+            new_user = form.save(commit=False)
+            # username = form.cleaned_data['username']
+            new_user.set_password(form.cleaned_data['password1'])
+            new_user.save()
             # messages.success(
             #    request, 'تهانينا {} لقد تمت عملية التسجيل بنجاح.'.format(username))
             messages.success(
-                request, f'تهانينا {username} لقد تمت عملية التسجيل بنجاح.')
-            return redirect('home')
+                request, f'تهانينا {new_user} لقد تمت عملية التسجيل بنجاح.')
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'app_user/register.html', {
@@ -34,7 +40,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
         else:
             messages.warning(
                 request, 'هناك خطأ في اسم المستخدم أو كلمة المرور.')
@@ -49,26 +55,46 @@ def logout_user(request):
     return render(request, 'app_user/logout.html', {
         'title': 'تسجيل الخروج'
     })
-    
-    
 
-
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def profile(request):
     posts = Post.objects.filter(author=request.user)
     post_list = Post.objects.filter(author=request.user)
-    # paginator = Paginator(post_list, 10)
-    # page = request.GET.get('page')
-    # try:
-    #     post_list = paginator.page(page)
-    # except PageNotAnInteger:
-    #     post_list = paginator.page(1)
-    # except EmptyPage:
-    #     post_list = paginator.page(paginator.num_page)
+    paginator = Paginator(posts, 5)
+    page = request.GET.get('post_list')
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        post_list = paginator.page(1)
+    except EmptyPage:
+        post_list = paginator.page(paginator.num_page)
     return render(request, 'app_user/profile.html', {
         'title': 'الملف الشخصي',
         'posts': posts,
-        # 'page': page,
-        # 'post_list': post_list,
+        'page': page,
+        'post_list': post_list,
     })
 
+@login_required(login_url='login')
+def profile_update(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid and profile_form.is_valid:
+            user_form.save()
+            profile_form.save()
+            messages.success(
+                request, 'تم تحديث الملف الشخصي.')
+            return redirect('profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'title': 'تعديل الملف الشخصي',
+        'user_form': user_form,
+        'profile_form': profile_form,
+    }
+
+    return render(request, 'app_user/profile_update.html', context)

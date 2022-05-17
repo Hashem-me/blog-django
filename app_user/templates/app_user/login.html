@@ -3,6 +3,15 @@
 
 <div class="border p-4 mb-5">
   <legend class="border-bottom pb-1 mb-3">تسجيل الدخول</legend>
+  <!-- اظهار الرسالة -->
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{message.tage}}">
+    {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+
   <form method="POST">
     <!-- csrf_token تأمين وحماية النموذج -->
     {%csrf_token%}
